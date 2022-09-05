@@ -17,6 +17,7 @@
 		54FA7B9028A87F0A0067A210 /* Employee_DictionaryUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FA7B8F28A87F0A0067A210 /* Employee_DictionaryUITests.swift */; };
 		54FA7B9228A87F0A0067A210 /* Employee_DictionaryUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FA7B9128A87F0A0067A210 /* Employee_DictionaryUITestsLaunchTests.swift */; };
 		54FA7BA128A881490067A210 /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FA7B9F28A881490067A210 /* Network.swift */; };
+		54FA7BA228A881490067A210 /* DataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FA7BA028A881490067A210 /* DataModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,7 @@
 		54FA7B8F28A87F0A0067A210 /* Employee_DictionaryUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Employee_DictionaryUITests.swift; sourceTree = "<group>"; };
 		54FA7B9128A87F0A0067A210 /* Employee_DictionaryUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Employee_DictionaryUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		54FA7B9F28A881490067A210 /* Network.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
+		54FA7BA028A881490067A210 /* DataModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -272,6 +274,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				54FA7B7328A87F090067A210 /* ViewController.swift in Sources */,
+				54FA7BA228A881490067A210 /* DataModel.swift in Sources */,
 				54FA7B6F28A87F090067A210 /* AppDelegate.swift in Sources */,
 				54FA7BA128A881490067A210 /* Network.swift in Sources */,
 				54FA7B7128A87F090067A210 /* SceneDelegate.swift in Sources */,
