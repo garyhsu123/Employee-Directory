@@ -41,6 +41,7 @@ extension ViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "EmployeeInfoTableViewCell", for: indexPath) as! EmployeeInfoTableViewCell
+        cell.employeeProfileViewModel = EmployeeProfileViewModel(employeeModel: self.employeesData?[indexPath.item])
         return cell
     }
 

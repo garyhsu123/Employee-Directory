@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		542CBF6E28C4180D000D0C78 /* EmployeeDictionaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 542CBF6D28C4180D000D0C78 /* EmployeeDictionaryView.swift */; };
 		549453C228AC3EC000B02621 /* AlphabetTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 549453C128AC3EC000B02621 /* AlphabetTableViewCell.swift */; };
+		549453C828AC566D00B02621 /* EmployeeProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 549453C728AC566D00B02621 /* EmployeeProfileViewModel.swift */; };
 		54FA7B6F28A87F090067A210 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FA7B6E28A87F090067A210 /* AppDelegate.swift */; };
 		54FA7B7128A87F090067A210 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FA7B7028A87F090067A210 /* SceneDelegate.swift */; };
 		54FA7B7328A87F090067A210 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FA7B7228A87F090067A210 /* ViewController.swift */; };
@@ -43,6 +44,7 @@
 /* Begin PBXFileReference section */
 		542CBF6D28C4180D000D0C78 /* EmployeeDictionaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeeDictionaryView.swift; sourceTree = "<group>"; };
 		549453C128AC3EC000B02621 /* AlphabetTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlphabetTableViewCell.swift; sourceTree = "<group>"; };
+		549453C728AC566D00B02621 /* EmployeeProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeeProfileViewModel.swift; sourceTree = "<group>"; };
 		54FA7B6B28A87F090067A210 /* Employee Dictionary.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Employee Dictionary.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		54FA7B6E28A87F090067A210 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		54FA7B7028A87F090067A210 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -86,6 +88,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		549453C628AC565000B02621 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				549453C728AC566D00B02621 /* EmployeeProfileViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		54FA7B6228A87F080067A210 = {
 			isa = PBXGroup;
 			children = (
@@ -112,6 +122,7 @@
 				54FA7BF928AA19EF0067A210 /* View */,
 				54FA7B6E28A87F090067A210 /* AppDelegate.swift */,
 				54FA7B7028A87F090067A210 /* SceneDelegate.swift */,
+				549453C628AC565000B02621 /* ViewModel */,
 				54FA7B7228A87F090067A210 /* ViewController.swift */,
 				54FA7B9E28A881320067A210 /* Model */,
 				54FA7B7428A87F090067A210 /* Main.storyboard */,
@@ -293,6 +304,7 @@
 				54FA7B7328A87F090067A210 /* ViewController.swift in Sources */,
 				549453C228AC3EC000B02621 /* AlphabetTableViewCell.swift in Sources */,
 				54FA7BA228A881490067A210 /* DataModel.swift in Sources */,
+				549453C828AC566D00B02621 /* EmployeeProfileViewModel.swift in Sources */,
 				54FA7BFB28AA1A2C0067A210 /* EmployeeInfoTableViewCell.swift in Sources */,
 				542CBF6E28C4180D000D0C78 /* EmployeeDictionaryView.swift in Sources */,
 				54FA7B6F28A87F090067A210 /* AppDelegate.swift in Sources */,

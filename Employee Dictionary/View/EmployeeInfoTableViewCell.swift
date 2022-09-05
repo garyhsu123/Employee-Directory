@@ -94,6 +94,22 @@ class EmployeeInfoTableViewCell: UITableViewCell {
     private var emailTap: UITapGestureRecognizer?
     private var phoneTap: UITapGestureRecognizer?
 
+    // FIXME: The photos are wrong in first launch.
+    var employeeProfileViewModel: EmployeeProfileViewModel? {
+        didSet {
+            self.name.text = employeeProfileViewModel?.name
+            self.team.text = employeeProfileViewModel?.team
+
+            DispatchQueue.global().async {
+                if let url = self.employeeProfileViewModel?.photoUrlSmall, let imageData = NSData(contentsOf: url) as? Data {
+                    DispatchQueue.main.async {
+                        self.headShotImageView.image = UIImage(data: imageData)
+                    }
+                }
+            }
+        }
+    }
+    
     // FIXME: Recognizer can not work.
     @objc func clickIcogesture(gesture: UITapGestureRecognizer) {
         if (gesture.view == emailIcon) {
