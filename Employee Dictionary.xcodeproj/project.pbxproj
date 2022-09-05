@@ -16,6 +16,7 @@
 		54FA7B8628A87F0A0067A210 /* Employee_DictionaryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FA7B8528A87F0A0067A210 /* Employee_DictionaryTests.swift */; };
 		54FA7B9028A87F0A0067A210 /* Employee_DictionaryUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FA7B8F28A87F0A0067A210 /* Employee_DictionaryUITests.swift */; };
 		54FA7B9228A87F0A0067A210 /* Employee_DictionaryUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FA7B9128A87F0A0067A210 /* Employee_DictionaryUITestsLaunchTests.swift */; };
+		54FA7BA128A881490067A210 /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FA7B9F28A881490067A210 /* Network.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +50,7 @@
 		54FA7B8B28A87F0A0067A210 /* Employee DictionaryUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Employee DictionaryUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		54FA7B8F28A87F0A0067A210 /* Employee_DictionaryUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Employee_DictionaryUITests.swift; sourceTree = "<group>"; };
 		54FA7B9128A87F0A0067A210 /* Employee_DictionaryUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Employee_DictionaryUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		54FA7B9F28A881490067A210 /* Network.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,6 +104,7 @@
 				54FA7B6E28A87F090067A210 /* AppDelegate.swift */,
 				54FA7B7028A87F090067A210 /* SceneDelegate.swift */,
 				54FA7B7228A87F090067A210 /* ViewController.swift */,
+				54FA7B9E28A881320067A210 /* Model */,
 				54FA7B7428A87F090067A210 /* Main.storyboard */,
 				54FA7B7728A87F0A0067A210 /* Assets.xcassets */,
 				54FA7B7928A87F0A0067A210 /* LaunchScreen.storyboard */,
@@ -125,6 +128,16 @@
 				54FA7B9128A87F0A0067A210 /* Employee_DictionaryUITestsLaunchTests.swift */,
 			);
 			path = "Employee DictionaryUITests";
+			sourceTree = "<group>";
+		};
+		54FA7B9E28A881320067A210 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				54FA7BA028A881490067A210 /* DataModel.swift */,
+				54FA7B9F28A881490067A210 /* Network.swift */,
+				54FA7BF728A8964D0067A210 /* FileModel.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -260,6 +273,7 @@
 			files = (
 				54FA7B7328A87F090067A210 /* ViewController.swift in Sources */,
 				54FA7B6F28A87F090067A210 /* AppDelegate.swift in Sources */,
+				54FA7BA128A881490067A210 /* Network.swift in Sources */,
 				54FA7B7128A87F090067A210 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
