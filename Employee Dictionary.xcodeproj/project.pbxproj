@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		542CBF6E28C4180D000D0C78 /* EmployeeDictionaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 542CBF6D28C4180D000D0C78 /* EmployeeDictionaryView.swift */; };
+		549453C228AC3EC000B02621 /* AlphabetTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 549453C128AC3EC000B02621 /* AlphabetTableViewCell.swift */; };
 		54FA7B6F28A87F090067A210 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FA7B6E28A87F090067A210 /* AppDelegate.swift */; };
 		54FA7B7128A87F090067A210 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FA7B7028A87F090067A210 /* SceneDelegate.swift */; };
 		54FA7B7328A87F090067A210 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FA7B7228A87F090067A210 /* ViewController.swift */; };
@@ -18,6 +20,7 @@
 		54FA7B9228A87F0A0067A210 /* Employee_DictionaryUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FA7B9128A87F0A0067A210 /* Employee_DictionaryUITestsLaunchTests.swift */; };
 		54FA7BA128A881490067A210 /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FA7B9F28A881490067A210 /* Network.swift */; };
 		54FA7BA228A881490067A210 /* DataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FA7BA028A881490067A210 /* DataModel.swift */; };
+		54FA7BFB28AA1A2C0067A210 /* EmployeeInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FA7BFA28AA1A2C0067A210 /* EmployeeInfoTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,6 +41,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		542CBF6D28C4180D000D0C78 /* EmployeeDictionaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeeDictionaryView.swift; sourceTree = "<group>"; };
+		549453C128AC3EC000B02621 /* AlphabetTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlphabetTableViewCell.swift; sourceTree = "<group>"; };
 		54FA7B6B28A87F090067A210 /* Employee Dictionary.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Employee Dictionary.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		54FA7B6E28A87F090067A210 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		54FA7B7028A87F090067A210 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -53,6 +58,7 @@
 		54FA7B9128A87F0A0067A210 /* Employee_DictionaryUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Employee_DictionaryUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		54FA7B9F28A881490067A210 /* Network.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
 		54FA7BA028A881490067A210 /* DataModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataModel.swift; sourceTree = "<group>"; };
+		54FA7BFA28AA1A2C0067A210 /* EmployeeInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeeInfoTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +109,7 @@
 		54FA7B6D28A87F090067A210 /* Employee Dictionary */ = {
 			isa = PBXGroup;
 			children = (
+				54FA7BF928AA19EF0067A210 /* View */,
 				54FA7B6E28A87F090067A210 /* AppDelegate.swift */,
 				54FA7B7028A87F090067A210 /* SceneDelegate.swift */,
 				54FA7B7228A87F090067A210 /* ViewController.swift */,
@@ -140,6 +147,16 @@
 				54FA7BF728A8964D0067A210 /* FileModel.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		54FA7BF928AA19EF0067A210 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				54FA7BFA28AA1A2C0067A210 /* EmployeeInfoTableViewCell.swift */,
+				549453C128AC3EC000B02621 /* AlphabetTableViewCell.swift */,
+				542CBF6D28C4180D000D0C78 /* EmployeeDictionaryView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -274,7 +291,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				54FA7B7328A87F090067A210 /* ViewController.swift in Sources */,
+				549453C228AC3EC000B02621 /* AlphabetTableViewCell.swift in Sources */,
 				54FA7BA228A881490067A210 /* DataModel.swift in Sources */,
+				54FA7BFB28AA1A2C0067A210 /* EmployeeInfoTableViewCell.swift in Sources */,
+				542CBF6E28C4180D000D0C78 /* EmployeeDictionaryView.swift in Sources */,
 				54FA7B6F28A87F090067A210 /* AppDelegate.swift in Sources */,
 				54FA7BA128A881490067A210 /* Network.swift in Sources */,
 				54FA7B7128A87F090067A210 /* SceneDelegate.swift in Sources */,
