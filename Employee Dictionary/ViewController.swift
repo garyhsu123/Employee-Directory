@@ -10,7 +10,7 @@ import UIKit
 class ViewController: UIViewController {
 
     lazy var network = Network()
-    var employeesData: [Employee]?
+    var groupedEmployeesData:[(String.Element?,[Employee])]?
     
     private var customView: EmployeeDictionaryView = {
         var view = EmployeeDictionaryView.init(frame: UIScreen.main.bounds)
@@ -28,8 +28,25 @@ class ViewController: UIViewController {
         self.customView.tableView.dataSource = self
         self.customView.tableView.delegate = self
         try? self.network.requestJsonData(requestUrl: URL(string: "https://s3.amazonaws.com/sq-mobile-interview/employees.json"), jsonModel: CompanyData.self, completion: { response in
-            // TODO: Sorting
-            self.employeesData = response?.employees
+
+            
+            
+            guard let employees = response?.employees else {
+                return
+            }
+            
+            var groupedEmployees = Dictionary(grouping: employees, by: { employee in
+                return employee.fullName.first
+            }).sorted { $0.key! <= $1.key!}
+            
+            
+            for (idx, (charKey,unsortedEmployees)) in groupedEmployees.enumerated() {
+                groupedEmployees[idx] = (charKey, unsortedEmployees.sorted { $0.fullName < $1.fullName
+                })
+            }
+            
+            self.groupedEmployeesData = groupedEmployees
+            
             DispatchQueue.main.async {
                 self.customView.tableView.reloadData()
             }
@@ -41,7 +58,10 @@ extension ViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "EmployeeInfoTableViewCell", for: indexPath) as! EmployeeInfoTableViewCell
-        cell.employeeProfileViewModel = EmployeeProfileViewModel(employeeModel: self.employeesData?[indexPath.item])
+        
+        let model =  groupedEmployeesData?[indexPath.section].1[indexPath.item]
+        cell.employeeProfileViewModel = EmployeeProfileViewModel(employeeModel: model)
+        
         return cell
     }
 
@@ -50,7 +70,19 @@ extension ViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.employeesData?.count ?? 0
+
+        return self.groupedEmployeesData?[section].1.count ?? 0
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return self.groupedEmployeesData?.count ?? 0
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if let char = self.groupedEmployeesData?[section].0 {
+            return String(char)
+        }
+        return ""
     }
 }
 
