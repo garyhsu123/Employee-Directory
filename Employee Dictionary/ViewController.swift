@@ -10,6 +10,7 @@ import UIKit
 class ViewController: UIViewController {
 
     lazy var network = Network()
+    lazy var fileModel = FileModel()
     var groupedEmployeesData:[(String.Element?,[Employee])]?
     
     private var customView: EmployeeDictionaryView = {
@@ -60,7 +61,11 @@ extension ViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "EmployeeInfoTableViewCell", for: indexPath) as! EmployeeInfoTableViewCell
         
         let model =  groupedEmployeesData?[indexPath.section].1[indexPath.item]
-        cell.employeeProfileViewModel = EmployeeProfileViewModel(employeeModel: model)
+        
+        let employeeProfileViewModel = EmployeeProfileViewModel(employeeModel: model)
+        employeeProfileViewModel.fileModel = self.fileModel
+        
+        cell.employeeProfileViewModel = employeeProfileViewModel
         
         return cell
     }

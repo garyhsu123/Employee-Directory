@@ -99,11 +99,21 @@ class EmployeeInfoTableViewCell: UITableViewCell {
         didSet {
             self.name.text = employeeProfileViewModel?.name
             self.team.text = employeeProfileViewModel?.team
-
-            DispatchQueue.global().async {
-                if let url = self.employeeProfileViewModel?.photoUrlSmall, let imageData = NSData(contentsOf: url) as? Data {
-                    DispatchQueue.main.async {
-                        self.headShotImageView.image = UIImage(data: imageData)
+            
+            guard let url = self.employeeProfileViewModel?.photoUrlSmall, let uuid = self.employeeProfileViewModel?.uuid else {
+                return
+            }
+            
+            if let image = self.employeeProfileViewModel?.fileModel?.getPhoto(with: url, uuid: uuid) {
+                self.headShotImageView.image = image
+            } else {
+                
+                DispatchQueue.global().async {
+                    if let imageData = NSData(contentsOf: url) as? Data, let image = UIImage(data: imageData) {
+                        self.employeeProfileViewModel?.fileModel?.savePhoto(with: image, imageUrl: url, uuid: uuid)
+                        DispatchQueue.main.async {
+                            self.headShotImageView.image = image
+                        }
                     }
                 }
             }
