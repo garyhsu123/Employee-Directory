@@ -8,7 +8,12 @@
 import UIKit
 
 class EmployeeInfoTableViewCell: UITableViewCell {
-
+    
+    var didClickEmailClosure: ((_ alertController: UIAlertController)->())?
+    var didClickPhoneClosure: ((_ alertController: UIAlertController)->())?
+    var phoneNumber: String?
+    var email: String?
+    
     let headShotImageView: UIImageView = {
         var view = UIImageView()
         view.contentMode = .scaleAspectFit
@@ -51,19 +56,19 @@ class EmployeeInfoTableViewCell: UITableViewCell {
     }
     
     func customInit() {
-        self.addSubview(self.headShotImageView)
+        self.contentView.addSubview(self.headShotImageView)
         self.headShotImageView.translatesAutoresizingMaskIntoConstraints = false
         self.headShotImageView.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
         self.headShotImageView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16).isActive = true
         self.headShotImageView.widthAnchor.constraint(equalTo: self.headShotImageView.heightAnchor).isActive = true
         self.headShotImageView.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 65/87).isActive = true
         
-        self.addSubview(self.name)
+        self.contentView.addSubview(self.name)
         self.name.translatesAutoresizingMaskIntoConstraints = false
         self.name.leadingAnchor.constraint(equalTo: self.headShotImageView.trailingAnchor, constant: 10).isActive = true
         NSLayoutConstraint(item: self.name, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .centerY, multiplier: 0.68, constant: 0).isActive = true
         
-        self.addSubview(self.team)
+        self.contentView.addSubview(self.team)
         self.team.translatesAutoresizingMaskIntoConstraints = false
         self.team.leadingAnchor.constraint(equalTo: self.name.leadingAnchor).isActive = true
         self.team.topAnchor.constraint(equalTo: self.name.bottomAnchor, constant: 5).isActive = true
@@ -81,7 +86,7 @@ class EmployeeInfoTableViewCell: UITableViewCell {
         let stackView = UIStackView(arrangedSubviews: [self.emailIcon, self.phoneIcon])
         stackView.axis = .horizontal
         stackView.spacing = 15
-        self.addSubview(stackView)
+        self.contentView.addSubview(stackView)
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -36).isActive = true
         NSLayoutConstraint(item: stackView, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .centerY, multiplier: 1.18, constant: 0).isActive = true
@@ -99,6 +104,8 @@ class EmployeeInfoTableViewCell: UITableViewCell {
         didSet {
             self.name.text = employeeProfileViewModel?.name
             self.team.text = employeeProfileViewModel?.team
+            self.phoneNumber = employeeProfileViewModel?.phone
+            self.email = employeeProfileViewModel?.email
             
             guard let url = self.employeeProfileViewModel?.photoUrlSmall, let uuid = self.employeeProfileViewModel?.uuid else {
                 return
@@ -120,13 +127,25 @@ class EmployeeInfoTableViewCell: UITableViewCell {
         }
     }
     
-    // FIXME: Recognizer can not work.
     @objc func clickIcogesture(gesture: UITapGestureRecognizer) {
-        if (gesture.view == emailIcon) {
-            print("emailIcon")
+        
+        
+        
+        if gesture.view == emailIcon, let email = self.email, let didClickEmailClosure = self.didClickEmailClosure {
+            let alertVC = UIAlertController(title: "Send Email to ", message: "", preferredStyle: .actionSheet)
+            alertVC.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+            alertVC.addAction(UIAlertAction(title: email, style: .default, handler: { _ in
+                UIApplication.shared.open(URL(string: "mailto://\(email)")!)
+            }))
+            didClickEmailClosure(alertVC)
         }
-        else if (gesture.view == phoneIcon) {
-            print("phoneIcon")
+        else if gesture.view == phoneIcon, let phoneNumber = self.phoneNumber, let didClickPhoneClosure = self.didClickEmailClosure {
+            let alertVC = UIAlertController(title: "Make a phone call to", message: "", preferredStyle: .actionSheet)
+            alertVC.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+            alertVC.addAction(UIAlertAction(title: phoneNumber, style: .default, handler: { _ in
+                UIApplication.shared.open(URL(string: "tel://\(phoneNumber)")!)
+            }))
+            didClickPhoneClosure(alertVC)
         }
     }
 

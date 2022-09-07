@@ -65,6 +65,12 @@ extension ViewController: UITableViewDataSource {
         let employeeProfileViewModel = EmployeeProfileViewModel(employeeModel: model)
         employeeProfileViewModel.fileModel = self.fileModel
         
+        cell.didClickPhoneClosure = { alertVC in
+            self.present(alertVC, animated: true)
+        }
+        cell.didClickEmailClosure = { alertVC in
+            self.present(alertVC, animated: true)
+        }
         cell.employeeProfileViewModel = employeeProfileViewModel
         
         return cell
