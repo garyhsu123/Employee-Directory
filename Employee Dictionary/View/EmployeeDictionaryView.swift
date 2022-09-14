@@ -26,8 +26,12 @@ class EmployeeDictionaryView: UIView {
         var view = UITableView()
         view.backgroundColor = .red
         view.register(EmployeeInfoTableViewCell.self, forCellReuseIdentifier: "EmployeeInfoTableViewCell")
+        view.keyboardDismissMode = .onDrag
+        view.showsVerticalScrollIndicator = false
         return view;
     }()
+    
+    var searchFilterClosure:((_ searchText: String) -> ())?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -78,8 +82,16 @@ extension EmployeeDictionaryView: UISearchBarDelegate {
         self.searchBar.setShowsCancelButton(true, animated: true)
     }
     
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.endEditing(true)
+    }
+    
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         // TODO: Implement Search Function
+        guard let searchFilterClosure = self.searchFilterClosure else {
+            return
+        }
+        searchFilterClosure(searchText)
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {

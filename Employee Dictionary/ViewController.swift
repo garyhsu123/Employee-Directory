@@ -12,6 +12,7 @@ class ViewController: UIViewController {
     lazy var network = Network()
     lazy var fileModel = FileModel()
     var groupedEmployeesData:[(String.Element?,[Employee])]?
+    var rawGroupedEmployeesData:[(String.Element?,[Employee])]?
     
     private var customView: EmployeeDictionaryView = {
         var view = EmployeeDictionaryView.init(frame: UIScreen.main.bounds)
@@ -28,6 +29,10 @@ class ViewController: UIViewController {
         
         self.customView.tableView.dataSource = self
         self.customView.tableView.delegate = self
+        self.customView.searchFilterClosure = { [weak self] searchText in
+            self?.filterEmployeesData(with: searchText)
+        }
+        
         try? self.network.requestJsonData(requestUrl: URL(string: "https://s3.amazonaws.com/sq-mobile-interview/employees.json"), jsonModel: CompanyData.self, completion: { response in
 
             
@@ -47,12 +52,38 @@ class ViewController: UIViewController {
             }
             
             self.groupedEmployeesData = groupedEmployees
+            self.rawGroupedEmployeesData = groupedEmployees
             
             DispatchQueue.main.async {
                 self.customView.tableView.reloadData()
             }
         })
     }
+    
+    func filterEmployeesData(with searchText: String) {
+       
+        if searchText.count == 0 {
+            self.groupedEmployeesData = self.rawGroupedEmployeesData
+        }
+        else {
+            self.groupedEmployeesData = self.rawGroupedEmployeesData?.compactMap{ data in
+                var nameIcludesSearchText: [Employee] = []
+                for employee in data.1 {
+                    if (employee.fullName.lowercased().contains(searchText.lowercased())) {
+                        nameIcludesSearchText.append(employee)
+                    }
+                }
+                if (nameIcludesSearchText.isEmpty) {
+                    return nil
+                }
+                else {
+                    return (data.0, nameIcludesSearchText)
+                }
+            }
+        }
+        self.customView.tableView.reloadData()
+    }
+    
 }
 
 extension ViewController: UITableViewDataSource {
