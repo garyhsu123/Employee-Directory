@@ -10,7 +10,6 @@ import UIKit
 class EmployeeInfoTableViewCell: UITableViewCell {
     
     var didClickEmailClosure: ((_ alertController: UIAlertController)->())?
-    var didClickPhoneClosure: ((_ alertController: UIAlertController)->())?
     var phoneNumber: String?
     var email: String?
     
@@ -139,13 +138,8 @@ class EmployeeInfoTableViewCell: UITableViewCell {
             }))
             didClickEmailClosure(alertVC)
         }
-        else if gesture.view == phoneIcon, let phoneNumber = self.phoneNumber, let didClickPhoneClosure = self.didClickEmailClosure {
-            let alertVC = UIAlertController(title: "Make a phone call to", message: "", preferredStyle: .actionSheet)
-            alertVC.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-            alertVC.addAction(UIAlertAction(title: phoneNumber, style: .default, handler: { _ in
-                UIApplication.shared.open(URL(string: "tel://\(phoneNumber)")!)
-            }))
-            didClickPhoneClosure(alertVC)
+        else if gesture.view == phoneIcon, let phoneNumber = self.phoneNumber {
+            UIApplication.shared.open(URL(string: "tel://\(phoneNumber)")!)
         }
     }
 
