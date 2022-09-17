@@ -16,6 +16,7 @@ class EmployeeInfoTableViewCell: UITableViewCell {
     let headShotImageView: UIImageView = {
         var view = UIImageView()
         view.contentMode = .scaleAspectFit
+        view.layer.masksToBounds = true
         return view
     }()
     
@@ -105,6 +106,7 @@ class EmployeeInfoTableViewCell: UITableViewCell {
             self.team.text = employeeProfileViewModel?.team
             self.phoneNumber = employeeProfileViewModel?.phone
             self.email = employeeProfileViewModel?.email
+            self.headShotImageView.layer.cornerRadius = self.headShotImageView.bounds.height/2
             
             guard let url = self.employeeProfileViewModel?.photoUrlSmall, let uuid = self.employeeProfileViewModel?.uuid else {
                 return
