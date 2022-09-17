@@ -22,6 +22,7 @@
 		54FA7B9228A87F0A0067A210 /* Employee_DictionaryUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FA7B9128A87F0A0067A210 /* Employee_DictionaryUITestsLaunchTests.swift */; };
 		54FA7BA128A881490067A210 /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FA7B9F28A881490067A210 /* Network.swift */; };
 		54FA7BA228A881490067A210 /* DataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FA7BA028A881490067A210 /* DataModel.swift */; };
+		54FA7BF828A8964D0067A210 /* FileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FA7BF728A8964D0067A210 /* FileModel.swift */; };
 		54FA7BFB28AA1A2C0067A210 /* EmployeeInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FA7BFA28AA1A2C0067A210 /* EmployeeInfoTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
@@ -62,6 +63,7 @@
 		54FA7B9128A87F0A0067A210 /* Employee_DictionaryUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Employee_DictionaryUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		54FA7B9F28A881490067A210 /* Network.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
 		54FA7BA028A881490067A210 /* DataModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataModel.swift; sourceTree = "<group>"; };
+		54FA7BF728A8964D0067A210 /* FileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileModel.swift; sourceTree = "<group>"; };
 		54FA7BFA28AA1A2C0067A210 /* EmployeeInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeeInfoTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -313,6 +315,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				54FA7B7328A87F090067A210 /* ViewController.swift in Sources */,
+				54FA7BF828A8964D0067A210 /* FileModel.swift in Sources */,
 				549453C228AC3EC000B02621 /* AlphabetTableViewCell.swift in Sources */,
 				54FA7BA228A881490067A210 /* DataModel.swift in Sources */,
 				549453C828AC566D00B02621 /* EmployeeProfileViewModel.swift in Sources */,
