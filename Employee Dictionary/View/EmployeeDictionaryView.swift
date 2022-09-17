@@ -26,7 +26,6 @@ class EmployeeDictionaryView: UIView {
         var view = UITableView()
         view.backgroundColor = .red
         view.register(EmployeeInfoTableViewCell.self, forCellReuseIdentifier: "EmployeeInfoTableViewCell")
-        view.keyboardDismissMode = .onDrag
         view.showsVerticalScrollIndicator = false
         return view;
     }()
@@ -83,7 +82,7 @@ extension EmployeeDictionaryView: UISearchBarDelegate {
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        searchBar.endEditing(true)
+        searchBar.resignFirstResponder()
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
@@ -96,7 +95,7 @@ extension EmployeeDictionaryView: UISearchBarDelegate {
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         self.searchBar.setShowsCancelButton(false, animated: true)
-        self.searchBar.endEditing(true)
+        self.searchBar.resignFirstResponder()
     }
 }
 

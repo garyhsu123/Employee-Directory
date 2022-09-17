@@ -132,6 +132,10 @@ extension ViewController: UITableViewDataSource {
         let employeeProfileViewModel = EmployeeProfileViewModel(employeeModel: model)
         
         employeeDetailVC.employeeProfileViewModel = employeeProfileViewModel
+        self.customView.searchBar.resignFirstResponder()
+        if let cancelButton = self.customView.searchBar.value(forKey: "cancelButton") as? UIButton {
+            cancelButton.isEnabled = true
+        }
         self.navigationController?.present(employeeDetailVC, animated: true)
         
         tableView.deselectRow(at: indexPath, animated: false)
@@ -147,7 +151,13 @@ extension ViewController: UITableViewDataSource {
     }
 }
 
-extension ViewController: UITableViewDelegate {
-
+extension ViewController: UITableViewDelegate, UIScrollViewDelegate {
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        self.customView.searchBar.resignFirstResponder()
+        if let cancelButton = self.customView.searchBar.value(forKey: "cancelButton") as? UIButton {
+            cancelButton.isEnabled = true
+        }
+        
+    }
 }
 
