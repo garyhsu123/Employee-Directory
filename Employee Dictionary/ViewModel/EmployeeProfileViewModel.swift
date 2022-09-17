@@ -17,8 +17,10 @@ class EmployeeProfileViewModel: NSObject {
     var phone: String?
     var photoUrlSmall: URL?
     var photoUrlLarge: URL?
-
+    var biography: String?
+    
     var fileModel: FileModel?
+    var searchLocalPhotoClosure:((_ image: UIImage?) -> ())?
     
     init(employeeModel: Employee?) {
         self.uuid = employeeModel?.uuid
@@ -28,5 +30,6 @@ class EmployeeProfileViewModel: NSObject {
         self.phone = employeeModel?.phoneNumber
         self.photoUrlSmall = employeeModel?.photoUrlSmall
         self.photoUrlLarge = employeeModel?.photoUrlLarge
+        self.biography = employeeModel?.biography
     }
 }

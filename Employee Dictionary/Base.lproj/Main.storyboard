@@ -1,13 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21208.1" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="lwq-VG-CLC">
     <device id="retina6_0" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21191"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--Navigation Controller-->
+        <scene sceneID="Fpu-qR-90P">
+            <objects>
+                <navigationController id="lwq-VG-CLC" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="dp8-3b-S3i">
+                        <rect key="frame" x="0.0" y="44" width="390" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="WJE-Wc-boV"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1jr-Du-rRt" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-937" y="45"/>
+        </scene>
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
@@ -17,13 +34,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <navigationBar hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Msf-f1-B5X">
-                                <rect key="frame" x="0.0" y="44" width="390" height="44"/>
+                                <rect key="frame" x="0.0" y="88" width="390" height="44"/>
                                 <items>
                                     <navigationItem title="Employee Directory" id="PUt-rQ-gDh"/>
                                 </items>
                             </navigationBar>
                             <searchBar hidden="YES" contentMode="redraw" searchBarStyle="minimal" text="" placeholder="Search employee" translatesAutoresizingMaskIntoConstraints="NO" id="q6K-1Q-ubT">
-                                <rect key="frame" x="32.666666666666657" y="101" width="325" height="37"/>
+                                <rect key="frame" x="32.666666666666657" y="145" width="325" height="37"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="37" id="vk7-F6-Pw3"/>
                                 </constraints>
@@ -34,11 +51,11 @@
                                 </scopeButtonTitles>
                             </searchBar>
                             <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="n3Q-53-eeE">
-                                <rect key="frame" x="12" y="148" width="358" height="662"/>
+                                <rect key="frame" x="12" y="192" width="358" height="618"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="AlphbetCell" rowHeight="37" id="atp-aJ-C9l" customClass="AlphabetTableViewCell" customModule="Employee_Dictionary" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="44.666666030883789" width="358" height="37"/>
+                                        <rect key="frame" x="0.0" y="50" width="358" height="37"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="atp-aJ-C9l" id="C2H-LV-Tji">
                                             <rect key="frame" x="0.0" y="0.0" width="358" height="37"/>
@@ -58,7 +75,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="EmployeeInfoCell" rowHeight="87" id="FKF-sR-Jkj" customClass="EmployeeInfoTableViewCell" customModule="Employee_Dictionary" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="81.666666030883789" width="358" height="87"/>
+                                        <rect key="frame" x="0.0" y="87" width="358" height="87"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="FKF-sR-Jkj" id="eLX-Qy-jR9">
                                             <rect key="frame" x="0.0" y="0.0" width="358" height="87"/>
@@ -131,7 +148,7 @@
                                 </connections>
                             </tableView>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fep-9m-PI9">
-                                <rect key="frame" x="12" y="148" width="358" height="37"/>
+                                <rect key="frame" x="12" y="192" width="358" height="37"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="A" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p3i-r8-k6Z">
                                         <rect key="frame" x="25" y="0.0" width="14" height="37"/>
@@ -164,6 +181,7 @@
                             <constraint firstItem="fep-9m-PI9" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="37:390" id="uvc-BX-ypf"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="q1W-Y1-Oss"/>
                     <connections>
                         <outlet property="tableView" destination="n3Q-53-eeE" id="UlN-kb-WBP"/>
                     </connections>
