@@ -11,6 +11,7 @@ class ViewController: UIViewController {
 
     lazy var network = Network()
     lazy var fileModel = FileModel()
+    lazy var employeeDetailVC = EmployeeDetailViewController()
     var groupedEmployeesData:[(String.Element?,[Employee])]?
     var rawGroupedEmployeesData:[(String.Element?,[Employee])]?
     
@@ -125,6 +126,18 @@ extension ViewController: UITableViewDataSource {
             return String(char)
         }
         return ""
+    }
+ 
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        employeeDetailVC.fileModel = self.fileModel
+        
+        let model =  groupedEmployeesData?[indexPath.section].1[indexPath.item]
+        let employeeProfileViewModel = EmployeeProfileViewModel(employeeModel: model)
+        
+        employeeDetailVC.employeeProfileViewModel = employeeProfileViewModel
+        self.navigationController?.present(employeeDetailVC, animated: true)
+        
+        tableView.deselectRow(at: indexPath, animated: false)
     }
 }
 
