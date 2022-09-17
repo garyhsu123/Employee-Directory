@@ -102,26 +102,29 @@ class EmployeeInfoTableViewCell: UITableViewCell {
     // FIXME: The photos are wrong in first launch.
     var employeeProfileViewModel: EmployeeProfileViewModel? {
         didSet {
-            self.name.text = employeeProfileViewModel?.name
-            self.team.text = employeeProfileViewModel?.team
-            self.phoneNumber = employeeProfileViewModel?.phone
-            self.email = employeeProfileViewModel?.email
-            self.headShotImageView.layer.cornerRadius = self.headShotImageView.bounds.height/2
+            updateUI()
+        }
+    }
+    
+    func updateUI() {
+        self.name.text = employeeProfileViewModel?.name
+        self.team.text = employeeProfileViewModel?.team
+        self.phoneNumber = employeeProfileViewModel?.phone
+        self.email = employeeProfileViewModel?.email
+        
+        guard let url = self.employeeProfileViewModel?.photoUrlSmall, let uuid = self.employeeProfileViewModel?.uuid else {
+            return
+        }
+        
+        if let image = self.employeeProfileViewModel?.fileModel?.getPhoto(with: url, uuid: uuid) {
+            self.headShotImageView.image = image
+        } else {
             
-            guard let url = self.employeeProfileViewModel?.photoUrlSmall, let uuid = self.employeeProfileViewModel?.uuid else {
-                return
-            }
-            
-            if let image = self.employeeProfileViewModel?.fileModel?.getPhoto(with: url, uuid: uuid) {
-                self.headShotImageView.image = image
-            } else {
-                
-                DispatchQueue.global().async {
-                    if let imageData = NSData(contentsOf: url) as? Data, let image = UIImage(data: imageData) {
-                        self.employeeProfileViewModel?.fileModel?.savePhoto(with: image, imageUrl: url, uuid: uuid)
-                        DispatchQueue.main.async {
-                            self.headShotImageView.image = image
-                        }
+            DispatchQueue.global().async {
+                if let imageData = NSData(contentsOf: url) as? Data, let image = UIImage(data: imageData) {
+                    self.employeeProfileViewModel?.fileModel?.savePhoto(with: image, imageUrl: url, uuid: uuid)
+                    DispatchQueue.main.async {
+                        self.headShotImageView.image = image
                     }
                 }
             }
