@@ -136,6 +136,15 @@ extension ViewController: UITableViewDataSource {
         
         tableView.deselectRow(at: indexPath, animated: false)
     }
+    
+    func sectionIndexTitles(for tableView: UITableView) -> [String]? {
+        return self.groupedEmployeesData?.compactMap({ String($0.0!)
+        })
+    }
+    
+    func tableView(_ tableView: UITableView, sectionForSectionIndexTitle title: String, at index: Int) -> Int {
+        return index
+    }
 }
 
 extension ViewController: UITableViewDelegate {
