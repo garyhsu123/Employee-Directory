@@ -142,10 +142,6 @@
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
-                                <connections>
-                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="Igx-rv-IrH"/>
-                                    <outlet property="delegate" destination="BYZ-38-t0r" id="nDZ-D8-nhz"/>
-                                </connections>
                             </tableView>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fep-9m-PI9">
                                 <rect key="frame" x="12" y="192" width="358" height="37"/>
@@ -182,9 +178,6 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="q1W-Y1-Oss"/>
-                    <connections>
-                        <outlet property="tableView" destination="n3Q-53-eeE" id="UlN-kb-WBP"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
