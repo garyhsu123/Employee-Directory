@@ -112,23 +112,19 @@ class EmployeeInfoTableViewCell: UITableViewCell {
         self.phoneNumber = employeeProfileViewModel?.phone
         self.email = employeeProfileViewModel?.email
         
-        guard let url = self.employeeProfileViewModel?.photoUrlSmall, let uuid = self.employeeProfileViewModel?.uuid else {
-            return
-        }
-        
-        if let image = self.employeeProfileViewModel?.fileModel?.getPhoto(with: url, uuid: uuid) {
-            self.headShotImageView.image = image
-        } else {
-            
-            DispatchQueue.global().async {
-                if let imageData = NSData(contentsOf: url) as? Data, let image = UIImage(data: imageData) {
-                    self.employeeProfileViewModel?.fileModel?.savePhoto(with: image, imageUrl: url, uuid: uuid)
-                    DispatchQueue.main.async {
-                        self.headShotImageView.image = image
-                    }
+        self.employeeProfileViewModel?.getPhoto(with: self.employeeProfileViewModel?.photoUrlLarge, completion: { image in
+            if Thread.isMainThread {
+                self.headShotImageView.image = image
+                self.layoutIfNeeded()
+                self.headShotImageView.layer.cornerRadius = self.headShotImageView.bounds.height/2
+            }
+            else {
+                DispatchQueue.main.async {
+                    self.headShotImageView.image = image
+                    self.headShotImageView.layer.cornerRadius = self.headShotImageView.bounds.height/2
                 }
             }
-        }
+        })
     }
     
     @objc func clickIcogesture(gesture: UITapGestureRecognizer) {

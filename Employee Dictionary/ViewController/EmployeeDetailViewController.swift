@@ -125,23 +125,14 @@ class EmployeeDetailViewController: UIViewController {
         self.nameLabel.text = self.employeeProfileViewModel?.name
         self.teamLabel.text = self.employeeProfileViewModel?.team
         self.biographyLabel.text = self.employeeProfileViewModel?.biography
+        self.imageView.image = nil
         
-        guard let url = self.employeeProfileViewModel?.photoUrlLarge, let uuid = self.employeeProfileViewModel?.uuid else {
-            return
-        }
-        
-        
-        if let image = fileModel?.getPhoto(with: url, uuid: uuid) {
-            self.imageView.image = image
-        }
-        else {
-            DispatchQueue.global().async {
-                if let data = try? Data(contentsOf: url), let image = UIImage(data: data) {
-                    self.fileModel?.savePhoto(with: image, imageUrl: url, uuid: uuid)
-                }
-                
+        self.employeeProfileViewModel?.getPhoto(with: self.employeeProfileViewModel?.photoUrlLarge, completion: { [weak self] image in
+            Thread.isMainThread ? self?.imageView.image = image :
+            DispatchQueue.main.async {
+                self?.imageView.image = image
             }
-        }
+        })
     }
 
     @objc func clickIcogesture(gesture: UITapGestureRecognizer) {

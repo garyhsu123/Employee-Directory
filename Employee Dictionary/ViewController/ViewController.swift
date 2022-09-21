@@ -10,11 +10,8 @@ import MobileCoreServices
 
 class ViewController: UIViewController {
 
-    lazy var network = Network()
-    lazy var fileModel = FileModel()
     lazy var employeeDetailVC = EmployeeDetailViewController()
-    var groupedEmployeesData:[(String.Element?,[Employee])]?
-    var rawGroupedEmployeesData:[(String.Element?,[Employee])]?
+    var employeeListViewModel = EmployeeListViewModelObject(network: Network(), fileModel: FileModel())
     
     var navigationBar: UINavigationBar = {
         var view = UINavigationBar()
@@ -50,44 +47,17 @@ class ViewController: UIViewController {
         return view;
     }()
     
-    var searchFilterClosure:((_ searchText: String) -> ())?
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         configUI()
         
-        self.tableView.dataSource = self
-        self.tableView.delegate = self
-        self.searchFilterClosure = { [weak self] searchText in
-            self?.filterEmployeesData(with: searchText)
-        }
-        
-        try? self.network.requestJsonData(requestUrl: URL(string: "https://s3.amazonaws.com/sq-mobile-interview/employees.json"), jsonModel: CompanyData.self, completion: { response in
-
-            
-            
-            guard let employees = response?.employees else {
-                return
-            }
-            
-            var groupedEmployees = Dictionary(grouping: employees, by: { employee in
-                return employee.fullName.first
-            }).sorted { $0.key! <= $1.key!}
-            
-            
-            for (idx, (charKey,unsortedEmployees)) in groupedEmployees.enumerated() {
-                groupedEmployees[idx] = (charKey, unsortedEmployees.sorted { $0.fullName < $1.fullName
-                })
-            }
-            
-            self.groupedEmployeesData = groupedEmployees
-            self.rawGroupedEmployeesData = groupedEmployees
-            
+        try? self.employeeListViewModel.requestData(url: URL(string: "https://s3.amazonaws.com/sq-mobile-interview/employees.json"), decodeModel: CompanyData.self) {
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }
-        })
+        }
+        
     }
     
     func configUI() {
@@ -117,6 +87,8 @@ class ViewController: UIViewController {
         self.tableView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor).isActive = true
         self.tableView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 12).isActive = true
         self.tableView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20).isActive = true
+        self.tableView.dataSource = self
+        self.tableView.delegate = self
         
         self.view.addSubview(self.plainView)
         self.plainView.translatesAutoresizingMaskIntoConstraints = false
@@ -130,54 +102,17 @@ class ViewController: UIViewController {
         self.indicatorView.centerYAnchor.constraint(equalTo: self.plainView.centerYAnchor).isActive = true
         self.indicatorView.centerXAnchor.constraint(equalTo: self.plainView.centerXAnchor).isActive = true
     }
-    
-    func filterEmployeesData(with searchText: String) {
-       
-        if searchText.count == 0 {
-            self.groupedEmployeesData = self.rawGroupedEmployeesData
-        }
-        else {
-            self.groupedEmployeesData = self.rawGroupedEmployeesData?.compactMap{ data in
-                var nameIcludesSearchText: [Employee] = []
-                for employee in data.1 {
-                    if (employee.fullName.lowercased().contains(searchText.lowercased())) {
-                        nameIcludesSearchText.append(employee)
-                    }
-                }
-                if (nameIcludesSearchText.isEmpty) {
-                    return nil
-                }
-                else {
-                    return (data.0, nameIcludesSearchText)
-                }
-            }
-        }
-        self.tableView.reloadData()
-    }
-    
 }
 
 extension ViewController: UITableViewDataSource {
 
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        guard let employeeInfoTableViewCell = cell as? EmployeeInfoTableViewCell else {
-            return
-        }
-        employeeInfoTableViewCell.headShotImageView.layer.cornerRadius = employeeInfoTableViewCell.headShotImageView.bounds.height/2
-    }
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "EmployeeInfoTableViewCell", for: indexPath) as! EmployeeInfoTableViewCell
-        
-        let model =  groupedEmployeesData?[indexPath.section].1[indexPath.item]
-        
-        let employeeProfileViewModel = EmployeeProfileViewModel(employeeModel: model)
-        employeeProfileViewModel.fileModel = self.fileModel
         
         cell.didClickEmailClosure = { alertVC in
             self.present(alertVC, animated: true)
         }
-        cell.employeeProfileViewModel = employeeProfileViewModel
+        cell.employeeProfileViewModel = self.employeeListViewModel.getViewModel(section: indexPath.section, index: indexPath.item)
         
         return cell
     }
@@ -187,28 +122,19 @@ extension ViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-
-        return self.groupedEmployeesData?[section].1.count ?? 0
+        return employeeListViewModel.count(section: section)
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return self.groupedEmployeesData?.count ?? 0
+        return employeeListViewModel.sectionCount
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if let char = self.groupedEmployeesData?[section].0 {
-            return String(char)
-        }
-        return ""
+        return self.employeeListViewModel.getTitle(section: section)
     }
  
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        employeeDetailVC.fileModel = self.fileModel
-        
-        let model =  groupedEmployeesData?[indexPath.section].1[indexPath.item]
-        let employeeProfileViewModel = EmployeeProfileViewModel(employeeModel: model)
-        
-        employeeDetailVC.employeeProfileViewModel = employeeProfileViewModel
+        employeeDetailVC.employeeProfileViewModel = self.employeeListViewModel.getViewModel(section: indexPath.section, index: indexPath.item)
         self.searchBar.resignFirstResponder()
         if let cancelButton = self.searchBar.value(forKey: "cancelButton") as? UIButton {
             cancelButton.isEnabled = true
@@ -219,8 +145,7 @@ extension ViewController: UITableViewDataSource {
     }
     
     func sectionIndexTitles(for tableView: UITableView) -> [String]? {
-        return self.groupedEmployeesData?.compactMap({ String($0.0!)
-        })
+        return employeeListViewModel.sectionIndexTitles
     }
     
     func tableView(_ tableView: UITableView, sectionForSectionIndexTitle title: String, at index: Int) -> Int {
@@ -252,11 +177,8 @@ extension ViewController: UISearchBarDelegate {
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        // TODO: Implement Search Function
-        guard let searchFilterClosure = self.searchFilterClosure else {
-            return
-        }
-        searchFilterClosure(searchText)
+        self.employeeListViewModel.filter(with: searchText)
+        self.tableView.reloadData()
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {

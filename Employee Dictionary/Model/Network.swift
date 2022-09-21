@@ -17,7 +17,7 @@ class Network: NSObject {
   
     var cancellable: Cancellable?
     
-    func requestJsonData<T: Decodable>(requestUrl: URL?, jsonModel: T.Type, completion: ((_ response: T?) -> ())?) throws {
+    func requestJsonData<T: Decodable>(requestUrl: URL?, decodeModel: T.Type, completion: ((_ response: T?) -> ())?) throws {
         
         guard let requestUrl = requestUrl else {
             throw NetworkError.urlError
