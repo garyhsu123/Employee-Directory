@@ -11,7 +11,7 @@ class EmployeeListViewModelObject: EmployeeListViewModel {
     
     fileprivate var groupedEmployeesData: [(String.Element?,[Employee])]?
     fileprivate var rawGroupedEmployeesData: [(String.Element?,[Employee])]?
-    fileprivate var network: Network?
+    fileprivate var network: NetworkProtocol?
     fileprivate var fileModel: FileModel?
     
     var sectionCount: Int {
@@ -31,7 +31,7 @@ class EmployeeListViewModelObject: EmployeeListViewModel {
         }
     }
     
-    init(network: Network, fileModel: FileModel? = nil) {
+    init(network: NetworkProtocol, fileModel: FileModel? = nil) {
         self.network = network
         self.fileModel = fileModel
     }

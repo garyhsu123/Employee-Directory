@@ -12,7 +12,11 @@ enum NetworkError: Error {
     case urlError
 }
 
-class Network: NSObject {
+protocol NetworkProtocol {
+    func requestJsonData<T: Decodable>(requestUrl: URL?, decodeModel: T.Type, completion: ((_ response: T?) -> ())?) throws
+}
+
+class HTTPNetwork: NSObject, NetworkProtocol {
     
   
     var cancellable: Cancellable?
