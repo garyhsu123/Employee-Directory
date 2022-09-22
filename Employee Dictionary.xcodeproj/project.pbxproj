@@ -10,6 +10,7 @@
 		540CA42228D5713300B3BAA7 /* EmployeeDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 540CA42128D5713300B3BAA7 /* EmployeeDetailViewController.swift */; };
 		5452752528DAA78F00EC2AF6 /* EmployeeListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5452752428DAA78F00EC2AF6 /* EmployeeListViewModel.swift */; };
 		5452752928DAAE2D00EC2AF6 /* EmployeeListViewModelObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5452752828DAAE2D00EC2AF6 /* EmployeeListViewModelObject.swift */; };
+		5452752E28DC21BB00EC2AF6 /* DummyNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5452752D28DC21BB00EC2AF6 /* DummyNetwork.swift */; };
 		549453C228AC3EC000B02621 /* AlphabetTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 549453C128AC3EC000B02621 /* AlphabetTableViewCell.swift */; };
 		549453C828AC566D00B02621 /* EmployeeProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 549453C728AC566D00B02621 /* EmployeeProfileViewModel.swift */; };
 		54FA7B6F28A87F090067A210 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FA7B6E28A87F090067A210 /* AppDelegate.swift */; };
@@ -48,6 +49,7 @@
 		540CA42128D5713300B3BAA7 /* EmployeeDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeeDetailViewController.swift; sourceTree = "<group>"; };
 		5452752428DAA78F00EC2AF6 /* EmployeeListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeeListViewModel.swift; sourceTree = "<group>"; };
 		5452752828DAAE2D00EC2AF6 /* EmployeeListViewModelObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeeListViewModelObject.swift; sourceTree = "<group>"; };
+		5452752D28DC21BB00EC2AF6 /* DummyNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyNetwork.swift; sourceTree = "<group>"; };
 		549453C128AC3EC000B02621 /* AlphabetTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlphabetTableViewCell.swift; sourceTree = "<group>"; };
 		549453C728AC566D00B02621 /* EmployeeProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeeProfileViewModel.swift; sourceTree = "<group>"; };
 		54FA7B6B28A87F090067A210 /* Employee Dictionary.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Employee Dictionary.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -162,6 +164,7 @@
 			isa = PBXGroup;
 			children = (
 				54FA7B8528A87F0A0067A210 /* Employee_DictionaryTests.swift */,
+				5452752D28DC21BB00EC2AF6 /* DummyNetwork.swift */,
 			);
 			path = "Employee DictionaryTests";
 			sourceTree = "<group>";
@@ -345,6 +348,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				54FA7B8628A87F0A0067A210 /* Employee_DictionaryTests.swift in Sources */,
+				5452752E28DC21BB00EC2AF6 /* DummyNetwork.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

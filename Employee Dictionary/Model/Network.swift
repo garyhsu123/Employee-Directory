@@ -9,6 +9,7 @@ import Foundation
 import Combine
 
 enum NetworkError: Error {
+    case decodeFail
     case urlError
 }
 
