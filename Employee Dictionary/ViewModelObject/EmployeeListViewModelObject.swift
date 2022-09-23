@@ -44,7 +44,7 @@ class EmployeeListViewModelObject: EmployeeListViewModel {
             }
             
             var groupedEmployees = Dictionary(grouping: employees, by: { employee in
-                return employee.fullName.first
+                return employee.fullName.uppercased().first
             }).sorted { $0.key! <= $1.key!}
             
             

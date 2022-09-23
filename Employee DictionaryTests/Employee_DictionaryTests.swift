@@ -11,39 +11,52 @@ import XCTest
 class Employee_DictionaryTests: XCTestCase {
 
     var employeeProfileViewModel: EmployeeListViewModelObject!
-    var dummyNetwork: DummyNetwork!
+    var employeeDictionaryFakeDataSimulator: EmployeeDictionaryFakeDataSimulator!
     
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
         try super.setUpWithError()
-        dummyNetwork = DummyNetwork()
-        employeeProfileViewModel = EmployeeListViewModelObject(network: dummyNetwork)
+        employeeDictionaryFakeDataSimulator = EmployeeDictionaryFakeDataSimulator()
+        employeeProfileViewModel = EmployeeListViewModelObject(network: employeeDictionaryFakeDataSimulator)
+        try? employeeProfileViewModel.requestData(url: nil, decodeModel: CompanyData.self)
     }
 
     override func tearDownWithError() throws {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
-        dummyNetwork = nil
+        employeeDictionaryFakeDataSimulator = nil
         employeeProfileViewModel = nil
         try super.tearDownWithError()
     }
 
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        // Any test you write for XCTest can be annotated as throws and async.
-        // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
-        // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
+    func testSearch() throws {
+        let filterText = "c"
+        employeeProfileViewModel.filter(with: filterText)
+        employeeDictionaryFakeDataSimulator.filter(with: filterText)
+        
+        XCTAssertEqual(employeeDictionaryFakeDataSimulator.sectionIndexTitles, employeeProfileViewModel.sectionIndexTitles)
+        
+        for section in 0..<employeeProfileViewModel.sectionCount {
+            for index in 0..<employeeProfileViewModel.count(section: section) {
+                XCTAssertEqual(employeeDictionaryFakeDataSimulator.getViewModel(section: section, index: index), employeeProfileViewModel.getViewModel(section: section, index: index))
+            }
+        }
+        employeeProfileViewModel.filter(with: "")
+        employeeDictionaryFakeDataSimulator.filter(with: "")
+    }
+    
+    func testSectionIndexTitles() throws {
+        XCTAssertEqual(employeeDictionaryFakeDataSimulator.sectionIndexTitles, employeeProfileViewModel.sectionIndexTitles)
     }
 
     func testTotalNumberOfEmployees() {
-        try? employeeProfileViewModel.requestData(url: nil, decodeModel: CompanyData.self)
+        
         var totalEmployees = 0
         
         for i in 0 ..< employeeProfileViewModel.sectionCount {
             totalEmployees += employeeProfileViewModel.count(section: i)
         }
         
-        XCTAssertEqual(totalEmployees, dummyNetwork.expectedCount)
+        XCTAssertEqual(totalEmployees, employeeDictionaryFakeDataSimulator.totalEmployeesCount)
     }
     
     func testPerformanceExample() throws {

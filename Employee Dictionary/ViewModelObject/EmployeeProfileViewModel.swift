@@ -8,7 +8,13 @@
 import Foundation
 import UIKit
 
-struct EmployeeProfileViewModel {
+struct EmployeeProfileViewModel: Equatable {
+    
+    static func == (lhs: EmployeeProfileViewModel, rhs: EmployeeProfileViewModel) -> Bool {
+        return lhs.uuid == rhs.uuid
+        && lhs.name == rhs.name
+    }
+    
     
     var uuid: String?
     var name: String?
