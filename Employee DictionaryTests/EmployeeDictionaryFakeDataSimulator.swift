@@ -35,7 +35,7 @@ class EmployeeDictionaryFakeDataSimulator: NSObject, NetworkProtocol, EmployeeDi
     let letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXY"
     func randomString(length: Int) -> String {
       
-      return String((0..<10).map{ _ in letters.randomElement()! })
+      return String([length].map{ _ in letters.randomElement()! })
     }
     
     func requestJsonData<T>(requestUrl: URL?, decodeModel: T.Type, completion: ((T?) -> ())?) throws where T : Decodable {
