@@ -26,7 +26,7 @@ class EmployeeDictionaryFakeDataSimulator: NSObject, NetworkProtocol, EmployeeDi
     
     var totalEmployeesCount: Int {
         get {
-            return groupedEmployeesData?.count ?? 0
+            return groupedEmployeesData?.reduce(0, {$0 + $1.1.count}) ?? 0
         }
     }
     
