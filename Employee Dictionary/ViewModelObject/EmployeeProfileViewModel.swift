@@ -27,6 +27,9 @@ struct EmployeeProfileViewModel: Equatable {
     
     var fileModel: FileModel?
     
+    private var downloadQueue = OperationQueue()
+    private var downloadImageOperation: DownloadImageOperation?
+    
     init(employeeModel: Employee?, fileModel: FileModel? = nil) {
         self.uuid = employeeModel?.uuid
         self.name = employeeModel?.fullName
@@ -40,6 +43,10 @@ struct EmployeeProfileViewModel: Equatable {
         self.fileModel = fileModel
     }
     
+    func cancelDownload() {
+        self.downloadQueue.cancelAllOperations()
+    }
+    
     func getPhoto(with photoUrl: URL?, completion: @escaping ((UIImage?) -> ())) {
         guard let photoUrl = photoUrl, let uuid = self.uuid else {
             completion(nil)
@@ -51,13 +58,16 @@ struct EmployeeProfileViewModel: Equatable {
             completion(image)
         }
         else {
-            DispatchQueue.global().async {
-                if let data = try? Data(contentsOf: photoUrl), let image = UIImage(data: data) {
-                    self.fileModel?.savePhoto(with: image, imageUrl: photoUrl, uuid: uuid)
-                    completion(image)
+            let downloadableObject = ImageDownloadableObject(downloadUrl: photoUrl) { image in
+                guard let image = image else {
+                    return
                 }
-                
+                self.fileModel?.savePhoto(with: image, imageUrl: photoUrl, uuid: uuid)
+                completion(image)
             }
+            let downloadImageOperation = DownloadImageOperation(downloadableObject: downloadableObject)
+            self.downloadQueue.addOperation(downloadImageOperation)
         }
     }
+    
 }

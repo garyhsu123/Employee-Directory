@@ -99,7 +99,6 @@ class EmployeeInfoTableViewCell: UITableViewCell {
     private var emailTap: UITapGestureRecognizer?
     private var phoneTap: UITapGestureRecognizer?
 
-    // FIXME: The photos are wrong in first launch.
     var employeeProfileViewModel: EmployeeProfileViewModel? {
         didSet {
             updateUI()
@@ -112,19 +111,17 @@ class EmployeeInfoTableViewCell: UITableViewCell {
         self.phoneNumber = employeeProfileViewModel?.phone
         self.email = employeeProfileViewModel?.email
         
-        self.employeeProfileViewModel?.getPhoto(with: self.employeeProfileViewModel?.photoUrlLarge, completion: { image in
-            if Thread.isMainThread {
+        self.employeeProfileViewModel?.getPhoto(with: self.employeeProfileViewModel?.photoUrlSmall, completion: { image in
+            DispatchQueue.main.async {
                 self.headShotImageView.image = image
-                self.layoutIfNeeded()
                 self.headShotImageView.layer.cornerRadius = self.headShotImageView.bounds.height/2
             }
-            else {
-                DispatchQueue.main.async {
-                    self.headShotImageView.image = image
-                    self.headShotImageView.layer.cornerRadius = self.headShotImageView.bounds.height/2
-                }
-            }
         })
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.employeeProfileViewModel?.cancelDownload()
     }
     
     @objc func clickIcogesture(gesture: UITapGestureRecognizer) {
