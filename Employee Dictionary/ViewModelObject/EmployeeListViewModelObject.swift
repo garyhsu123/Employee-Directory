@@ -13,6 +13,7 @@ class EmployeeListViewModelObject: EmployeeListViewModel {
     fileprivate var rawGroupedEmployeesData: [(String.Element?,[Employee])]?
     fileprivate var network: NetworkProtocol?
     fileprivate var fileModel: FileModel?
+    fileprivate var searxchText: String = ""
     
     var sectionCount: Int {
         get {
@@ -74,15 +75,19 @@ class EmployeeListViewModelObject: EmployeeListViewModel {
         return ""
     }
     
-    func filter(with text: String) {
-        if text.count == 0 {
+    func filter(with text: String? = nil) {
+        
+        let searchText = text ?? self.searxchText
+        self.searxchText = searchText
+        
+        if searchText.count == 0 {
             self.groupedEmployeesData = self.rawGroupedEmployeesData
         }
         else {
             self.groupedEmployeesData = self.rawGroupedEmployeesData?.compactMap{ data in
                 var nameIcludesSearchText: [Employee] = []
                 for employee in data.1 {
-                    if (employee.fullName.lowercased().contains(text.lowercased())) {
+                    if (employee.fullName.lowercased().contains(searchText.lowercased())) {
                         nameIcludesSearchText.append(employee)
                     }
                 }

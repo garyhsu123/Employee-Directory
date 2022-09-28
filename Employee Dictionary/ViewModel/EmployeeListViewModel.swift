@@ -19,5 +19,5 @@ protocol EmployeeListViewModel {
     func requestData(url: URL?, decodeModel: decodeModel.Type, completion: (() -> ())?) throws
     func getViewModel(section: Int, index: Int) -> employeeViewModel
     func getTitle(section: Int) -> String?
-    func filter(with text: String)
+    func filter(with text: String?)
 }

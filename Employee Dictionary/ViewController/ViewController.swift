@@ -111,6 +111,7 @@ class ViewController: UIViewController {
     @objc func refreshUI() {
         try? self.employeeListViewModel.requestData(url: RemoteUrl, decodeModel: CompanyData.self) {
             DispatchQueue.main.async {
+                self.employeeListViewModel.filter()
                 self.tableView.reloadData()
                 DispatchQueue.main.async {
                     self.tableView.refreshControl?.endRefreshing()
