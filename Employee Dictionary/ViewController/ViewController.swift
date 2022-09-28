@@ -47,12 +47,14 @@ class ViewController: UIViewController {
         return view;
     }()
     
+    let RemoteUrl = URL(string: "https://s3.amazonaws.com/sq-mobile-interview/employees.json")
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         configUI()
         
-        try? self.employeeListViewModel.requestData(url: URL(string: "https://s3.amazonaws.com/sq-mobile-interview/employees.json"), decodeModel: CompanyData.self) {
+        try? self.employeeListViewModel.requestData(url: RemoteUrl, decodeModel: CompanyData.self) {
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }
@@ -89,6 +91,9 @@ class ViewController: UIViewController {
         self.tableView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20).isActive = true
         self.tableView.dataSource = self
         self.tableView.delegate = self
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(refreshUI), for: .valueChanged)
+        self.tableView.refreshControl = refreshControl
         
         self.view.addSubview(self.plainView)
         self.plainView.translatesAutoresizingMaskIntoConstraints = false
@@ -101,6 +106,17 @@ class ViewController: UIViewController {
         self.indicatorView.translatesAutoresizingMaskIntoConstraints = false
         self.indicatorView.centerYAnchor.constraint(equalTo: self.plainView.centerYAnchor).isActive = true
         self.indicatorView.centerXAnchor.constraint(equalTo: self.plainView.centerXAnchor).isActive = true
+    }
+    
+    @objc func refreshUI() {
+        try? self.employeeListViewModel.requestData(url: RemoteUrl, decodeModel: CompanyData.self) {
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+                DispatchQueue.main.async {
+                    self.tableView.refreshControl?.endRefreshing()
+                }
+            }
+        }
     }
 }
 
