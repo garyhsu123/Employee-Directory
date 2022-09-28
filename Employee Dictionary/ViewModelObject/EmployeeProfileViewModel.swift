@@ -67,9 +67,6 @@ class EmployeeProfileViewModel: Equatable {
         }
         else {
             let downloadableObject = ImageDownloadableObject(downloadUrl: photoUrl) { image in
-                guard let image = image else {
-                    return
-                }
                 self.fileModel?.savePhoto(with: image, imageUrl: photoUrl, uuid: uuid)
                 completion(image)
             }

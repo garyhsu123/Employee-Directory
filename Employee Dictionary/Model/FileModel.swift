@@ -55,7 +55,8 @@ class FileModel {
         return nil
     }
     
-    func savePhoto(with image: UIImage, imageUrl:URL, uuid: String) {
+    func savePhoto(with image: UIImage?, imageUrl:URL, uuid: String) {
+        guard let image = image else { return }
         savePhoto(image: image, imageUrl: imageUrl, uuid: uuid)
         UserDefaults.standard.set(NSNumber(value: Date.now.timeIntervalSince1970), forKey: imageUrl.path)
     }

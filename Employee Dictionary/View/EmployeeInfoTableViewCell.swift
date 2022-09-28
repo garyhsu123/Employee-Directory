@@ -121,7 +121,7 @@ class EmployeeInfoTableViewCell: UITableViewCell {
         
         self.employeeProfileViewModel?.getPhoto(with: self.employeeProfileViewModel?.photoUrlSmall, completion: { image in
             DispatchQueue.main.async {
-                self.headShotImageView.image = image
+                self.headShotImageView.image = image ?? UIImage(named: "Default Avatar")
                 self.headShotImageView.layer.cornerRadius = self.headShotImageView.bounds.height/2
             }
         })
