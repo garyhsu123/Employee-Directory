@@ -7,13 +7,14 @@
 
 import Foundation
 
-protocol EmployeeListViewModel {
+protocol EmployeeListViewModel: AnyObject {
     
     associatedtype decodeModel: Decodable
     associatedtype employeeViewModel
     
     var sectionCount: Int { get }
     var sectionIndexTitles: [String]? { get }
+    var searxchText: String { get }
     
     func count(section: Int) -> Int
     func requestData(url: URL?, decodeModel: decodeModel.Type, completion: (() -> ())?) throws

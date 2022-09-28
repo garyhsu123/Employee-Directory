@@ -106,7 +106,15 @@ class EmployeeInfoTableViewCell: UITableViewCell {
     }
     
     func updateUI() {
-        self.name.text = employeeProfileViewModel?.name
+        
+        if let name = employeeProfileViewModel?.name {
+            var attrString = AttributedString(name)
+            if let range = AttributedString(name.lowercased()).range(of: self.employeeProfileViewModel?.searchText?.lowercased() ?? "") {
+                attrString[range].foregroundColor = #colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1)
+            }
+            self.name.attributedText = NSAttributedString(attrString)
+        }
+        
         self.team.text = employeeProfileViewModel?.team
         self.phoneNumber = employeeProfileViewModel?.phone
         self.email = employeeProfileViewModel?.email

@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-struct EmployeeProfileViewModel: Equatable {
+class EmployeeProfileViewModel: Equatable {
     
     static func == (lhs: EmployeeProfileViewModel, rhs: EmployeeProfileViewModel) -> Bool {
         return lhs.uuid == rhs.uuid
@@ -26,11 +26,18 @@ struct EmployeeProfileViewModel: Equatable {
     var biography: String?
     
     var fileModel: FileModel?
+    weak var delegate: (any EmployeeListViewModel)?
+    
+    var searchText: String? {
+        get {
+            return delegate?.searxchText
+        }
+    }
     
     private var downloadQueue = OperationQueue()
     private var downloadImageOperation: DownloadImageOperation?
     
-    init(employeeModel: Employee?, fileModel: FileModel? = nil) {
+    init(employeeModel: Employee?, fileModel: FileModel? = nil, delegate: (any EmployeeListViewModel)? = nil) {
         self.uuid = employeeModel?.uuid
         self.name = employeeModel?.fullName
         self.team = employeeModel?.team
@@ -40,6 +47,7 @@ struct EmployeeProfileViewModel: Equatable {
         self.photoUrlLarge = employeeModel?.photoUrlLarge
         self.biography = employeeModel?.biography
         
+        self.delegate = delegate
         self.fileModel = fileModel
     }
     

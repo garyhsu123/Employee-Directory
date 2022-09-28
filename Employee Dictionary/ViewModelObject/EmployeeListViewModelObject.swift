@@ -13,7 +13,7 @@ class EmployeeListViewModelObject: EmployeeListViewModel {
     fileprivate var rawGroupedEmployeesData: [(String.Element?,[Employee])]?
     fileprivate var network: NetworkProtocol?
     fileprivate var fileModel: FileModel?
-    fileprivate var searxchText: String = ""
+    internal var searxchText: String = ""
     
     var sectionCount: Int {
         get {
@@ -61,7 +61,7 @@ class EmployeeListViewModelObject: EmployeeListViewModel {
     }
     
     func getViewModel(section: Int, index: Int) -> EmployeeProfileViewModel {
-        return EmployeeProfileViewModel(employeeModel: self.groupedEmployeesData?[section].1[index], fileModel: fileModel)
+        return EmployeeProfileViewModel(employeeModel: self.groupedEmployeesData?[section].1[index], fileModel: fileModel, delegate: self)
     }
     
     func count(section: Int) -> Int {
