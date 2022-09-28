@@ -128,7 +128,6 @@ class EmployeeDetailViewController: UIViewController {
         self.imageView.image = nil
         
         self.employeeProfileViewModel?.getPhoto(with: self.employeeProfileViewModel?.photoUrlLarge, completion: { [weak self] image in
-            Thread.isMainThread ? self?.imageView.image = image :
             DispatchQueue.main.async {
                 self?.imageView.image = image
             }
