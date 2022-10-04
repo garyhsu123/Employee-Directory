@@ -37,26 +37,29 @@ class EmployeeListViewModelObject: EmployeeListViewModel {
         self.fileModel = fileModel
     }
     
-    func requestData(url: URL?, decodeModel: CompanyData.Type, completion: (() -> ())? = nil) throws {
-        try? self.network?.requestJsonData(requestUrl: url, decodeModel: decodeModel.self, completion: { [weak self] response in
-            
-            guard let employees = response?.employees else {
-                return
+    func requestData(url: URL, decodeModel: CompanyData.Type, completion: ((_ success: Bool) -> ())? = nil) {
+        self.network?.requestJsonData(requestUrl: url, decodeModel: decodeModel.self, completion: { [weak self] result in
+            switch result {
+                case .success(let companyData):
+                    let employees = companyData.employees
+                    
+                    var groupedEmployees = Dictionary(grouping: employees, by: { employee in
+                        return employee.fullName.uppercased().first
+                    }).sorted { $0.key! <= $1.key!}
+                    
+                    
+                    for (idx, (charKey,unsortedEmployees)) in groupedEmployees.enumerated() {
+                        groupedEmployees[idx] = (charKey, unsortedEmployees.sorted { $0.fullName < $1.fullName
+                        })
+                    }
+                    
+                    self?.groupedEmployeesData = groupedEmployees
+                    self?.rawGroupedEmployeesData = groupedEmployees
+                    completion?(true)
+                case .failure(_):
+                    completion?(false)
             }
             
-            var groupedEmployees = Dictionary(grouping: employees, by: { employee in
-                return employee.fullName.uppercased().first
-            }).sorted { $0.key! <= $1.key!}
-            
-            
-            for (idx, (charKey,unsortedEmployees)) in groupedEmployees.enumerated() {
-                groupedEmployees[idx] = (charKey, unsortedEmployees.sorted { $0.fullName < $1.fullName
-                })
-            }
-            
-            self?.groupedEmployeesData = groupedEmployees
-            self?.rawGroupedEmployeesData = groupedEmployees
-            completion?()
         })
     }
     

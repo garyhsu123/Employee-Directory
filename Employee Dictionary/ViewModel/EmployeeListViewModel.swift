@@ -17,7 +17,7 @@ protocol EmployeeListViewModel: AnyObject {
     var searxchText: String { get }
     
     func count(section: Int) -> Int
-    func requestData(url: URL?, decodeModel: decodeModel.Type, completion: (() -> ())?) throws
+    func requestData(url: URL, decodeModel: decodeModel.Type, completion: ((Bool) -> ())?) throws
     func getViewModel(section: Int, index: Int) -> employeeViewModel
     func getTitle(section: Int) -> String?
     func filter(with text: String?)

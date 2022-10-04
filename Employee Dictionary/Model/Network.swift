@@ -10,38 +10,40 @@ import Combine
 
 enum NetworkError: Error {
     case decodeFail
-    case urlError
+    case unKnown
 }
 
 protocol NetworkProtocol {
-    func requestJsonData<T: Decodable>(requestUrl: URL?, decodeModel: T.Type, completion: ((_ response: T?) -> ())?) throws
+    func requestJsonData<T>(requestUrl: URL, decodeModel: T.Type, completion: @escaping (Result<T, NetworkError>) -> Void) where T : Codable
 }
 
 class HTTPNetwork: NSObject, NetworkProtocol {
     
   
     var cancellable: Cancellable?
-    
-    func requestJsonData<T: Decodable>(requestUrl: URL?, decodeModel: T.Type, completion: ((_ response: T?) -> ())?) throws {
+    func requestJsonData<T>(requestUrl: URL, decodeModel: T.Type, completion: @escaping (Result<T, NetworkError>) -> Void) where T : Codable {
         
-        guard let requestUrl = requestUrl else {
-            throw NetworkError.urlError
-        }
- 
         let decoder = JSONDecoder()
         decoder.keyDecodingStrategy = .convertFromSnakeCase
         
-        // TODO: Error Handling
         cancellable = URLSession.shared
             .dataTaskPublisher(for: requestUrl)
             .map { $0.data }
             .decode(type: T.self, decoder: decoder)
-            .sink(receiveCompletion: { completion in
-                print(completion)
-            }, receiveValue: { decodedData in
-                if let completion = completion {
-                    completion(decodedData)
+            .sink(receiveCompletion: { result in
+                switch result {
+                    case .finished:
+                        break
+                    case .failure(let err):
+                        if err is DecodingError {
+                            completion(.failure(.decodeFail))
+                        }
+                        else {
+                            completion(.failure(.unKnown))
+                        }
                 }
+            }, receiveValue: { decodedData in
+                completion(.success(decodedData))
             })
         
     }

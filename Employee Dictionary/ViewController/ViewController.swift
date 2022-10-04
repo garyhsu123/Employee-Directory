@@ -47,19 +47,31 @@ class ViewController: UIViewController {
         return view;
     }()
     
-    let RemoteUrl = URL(string: "https://s3.amazonaws.com/sq-mobile-interview/employees.json")
+    let RemoteUrl = URL(string: "https://s3.amazonaws.com/sq-mobile-interview/employees.json")!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         configUI()
         
-        try? self.employeeListViewModel.requestData(url: RemoteUrl, decodeModel: CompanyData.self) {
+        self.employeeListViewModel.requestData(url: RemoteUrl, decodeModel: CompanyData.self) {success in
             DispatchQueue.main.async {
+                if (!success) {
+                    self.showAlert()
+                    return
+                }
                 self.tableView.reloadData()
             }
         }
-        
+    }
+    
+    func showAlert() {
+        let alertVC = UIAlertController(title: "Error", message: "There is some issue happened.", preferredStyle: .alert)
+        alertVC.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        alertVC.addAction(UIAlertAction(title: "Reload", style: .default, handler: { _ in
+            self.refreshUI()
+        }))
+        self.navigationController?.present(alertVC, animated: true)
     }
     
     func configUI() {
@@ -109,8 +121,13 @@ class ViewController: UIViewController {
     }
     
     @objc func refreshUI() {
-        try? self.employeeListViewModel.requestData(url: RemoteUrl, decodeModel: CompanyData.self) {
+        self.employeeListViewModel.requestData(url: RemoteUrl, decodeModel: CompanyData.self) { success in
             DispatchQueue.main.async {
+                if (!success) {
+                    self.tableView.refreshControl?.endRefreshing()
+                    self.showAlert()
+                    return
+                }
                 self.employeeListViewModel.filter()
                 self.tableView.reloadData()
                 DispatchQueue.main.async {
