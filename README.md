@@ -23,19 +23,12 @@ Focus on|Reason|Problems to solve
 UI/UX Design|To understand what really important for the users.|How to priortize the information?
 Implement MVVM|<ul><li>To write a extensible and flexible code.</li><li>Be easy to test.</li></ul>| How to separate the business logic and user interface in a good way?
 Implement Unit Test|To create reliable code with resiliency.|What units should be tested?
-
-
-
-
-<!---
-1. UI/UX Design
-   
-  In the beginning, we have a clear goal that is using the available data to build a Employee-Directory Application. First, I need to find out what are important for the users. Ａfter doing interview with friends who are working for the companies -->
    
 
 ## How long did you spend on this project?
 Nearly 25 hours in total.
 
+![Time Distribution](images/Distribution.png)
 ## Did you make any trade-offs for this project? What would you have done differently with more time?
 <ol><li>There is one general alert dialogue that will pop out when some error happens during fetching data from the server. 
 
