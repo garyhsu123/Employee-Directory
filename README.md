@@ -37,11 +37,11 @@ Implement Unit Test|To create reliable code with resiliency.|What units should b
 Nearly 25 hours in total.
 
 ## Did you make any trade-offs for this project? What would you have done differently with more time?
-<ol><li>There is one general alert dialogue that will pop out when some error happens during fetching data from the server. What I miss are handling different error in a different way. 
+<ol><li>There is one general alert dialogue that will pop out when some error happens during fetching data from the server. 
 
 <p>
 
-For example, ask the user to change the network if there is an [*notConnectedToInternet*](https://developer.apple.com/documentation/foundation/urlerror/2293104-notconnectedtointernet) happens. Or show retry dialogue if request [*time-out*](https://developer.apple.com/documentation/foundation/urlerror/2293002-timedout).
+ What I miss are handling different error in a different way. For example, ask the user to change the network if there is an [*notConnectedToInternet*](https://developer.apple.com/documentation/foundation/urlerror/2293104-notconnectedtointernet) happens. Or show retry dialogue if request [*time-out*](https://developer.apple.com/documentation/foundation/urlerror/2293002-timedout).
 </li>
 <li>
 
