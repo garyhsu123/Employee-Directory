@@ -52,7 +52,7 @@ class ViewController: UIViewController {
         return view;
     }()
     
-    let RemoteUrl = URL(string: "https://s3.amazonaws.com/sq-mobile-interview/employees_malformed.json")!
+    let RemoteUrl = URL(string: "https://s3.amazonaws.com/sq-mobile-interview/employees.json")!
     let ErrorText = "There is some issue happened."
     let EmptyText = "The employees directory is empty."
     
