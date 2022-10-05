@@ -44,10 +44,17 @@ class ViewController: UIViewController {
         view.backgroundColor = .red
         view.register(EmployeeInfoTableViewCell.self, forCellReuseIdentifier: "EmployeeInfoTableViewCell")
         view.showsVerticalScrollIndicator = false
+        let label = UILabel()
+        label.textAlignment = .center
+        label.textColor = #colorLiteral(red: 0.6250856519, green: 0.6250856519, blue: 0.6250856519, alpha: 1)
+        label.isHidden = true
+        view.backgroundView = label
         return view;
     }()
     
-    let RemoteUrl = URL(string: "https://s3.amazonaws.com/sq-mobile-interview/employees.json")!
+    let RemoteUrl = URL(string: "https://s3.amazonaws.com/sq-mobile-interview/employees_malformed.json")!
+    let ErrorText = "There is some issue happened."
+    let EmptyText = "The employees directory is empty."
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,19 +65,38 @@ class ViewController: UIViewController {
             DispatchQueue.main.async {
                 if (!success) {
                     self.showAlert()
+                    self.showBackgroundText(with: self.ErrorText)
                     return
                 }
+                self.showBackgroundText(with: (self.employeeListViewModel.sectionCount == 0) ? self.EmptyText : "")
                 self.tableView.reloadData()
+                DispatchQueue.main.async {
+                    self.tableView.refreshControl?.endRefreshing()
+                }
             }
         }
     }
     
+    func showBackgroundText(with text: String) {
+        guard let backgroundLabelView = self.tableView.backgroundView as? UILabel else {
+            return
+        }
+        
+        backgroundLabelView.isHidden = text.count == 0
+        backgroundLabelView.text = text
+    }
+    
     func showAlert() {
         let alertVC = UIAlertController(title: "Error", message: "There is some issue happened.", preferredStyle: .alert)
-        alertVC.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        alertVC.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { _ in
+            DispatchQueue.main.async {
+                self.tableView.refreshControl?.endRefreshing()
+            }
+        }))
         alertVC.addAction(UIAlertAction(title: "Reload", style: .default, handler: { _ in
             self.refreshUI()
         }))
+        self.tableView.refreshControl?.beginRefreshing()
         self.navigationController?.present(alertVC, animated: true)
     }
     
@@ -106,6 +132,7 @@ class ViewController: UIViewController {
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(refreshUI), for: .valueChanged)
         self.tableView.refreshControl = refreshControl
+        self.tableView.refreshControl?.beginRefreshing()
         
         self.view.addSubview(self.plainView)
         self.plainView.translatesAutoresizingMaskIntoConstraints = false
@@ -124,10 +151,11 @@ class ViewController: UIViewController {
         self.employeeListViewModel.requestData(url: RemoteUrl, decodeModel: CompanyData.self) { success in
             DispatchQueue.main.async {
                 if (!success) {
-                    self.tableView.refreshControl?.endRefreshing()
                     self.showAlert()
+                    self.showBackgroundText(with: self.ErrorText)
                     return
                 }
+                self.showBackgroundText(with: (self.employeeListViewModel.sectionCount == 0) ? self.EmptyText : "")
                 self.employeeListViewModel.filter()
                 self.tableView.reloadData()
                 DispatchQueue.main.async {
