@@ -1,5 +1,5 @@
 # Employee-Directory
-Block’s Mobile Take-Home Project: an employee directory app.
+Block’s Mobile [Take-Home Project: an employee directory app](https://square.github.io/microsite/mobile-interview-project/#hello).
 
 ## Build tools & versions used
 Xcode (Version 14.0 beta 3)
@@ -34,7 +34,7 @@ Implement Unit Test|To create reliable code with resiliency.|What units should b
    
 
 ## How long did you spend on this project?
-Nearly 20 hours in total.
+Nearly 25 hours in total.
 
 ## Did you make any trade-offs for this project? What would you have done differently with more time?
 <ol><li>There is one general alert dialogue that will pop out when some error happens during fetching data from the server. What I miss are handling different error in a different way. 
@@ -67,4 +67,3 @@ func randomString(length: Int) -> String {
 ```
 ## Is there any other information you’d like us to know?
 It's the most interesting developing process I have ever had. In the beginning, I do the user research and get requests from the users. Second, I start creating wireframes and prototypes for the user interface. Afterwards, create the real applications on iPhone.
-
