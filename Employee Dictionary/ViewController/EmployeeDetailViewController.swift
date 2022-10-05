@@ -125,7 +125,7 @@ class EmployeeDetailViewController: UIViewController {
         self.nameLabel.text = self.employeeProfileViewModel?.name
         self.teamLabel.text = self.employeeProfileViewModel?.team
         self.biographyLabel.text = self.employeeProfileViewModel?.biography
-        self.imageView.image = nil
+        self.imageView.image = UIImage(named: "Default Avatar")
         
         self.employeeProfileViewModel?.getPhoto(with: self.employeeProfileViewModel?.photoUrlLarge, completion: { [weak self] image in
             DispatchQueue.main.async {
