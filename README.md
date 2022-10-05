@@ -44,7 +44,7 @@ Not creating the Unit Test to test the error handling for [Network](https://gith
 </ol>
 
 ## What do you think is the weakest part of your project?
-I haven't created a way to remove the employees' photos for an employee who isn't on the employee directory anymore. Therefore, the unused photos in the local directory will increase over time.
+I haven't created a way to remove the employees' photos for an employee who isn't on the employee directory. Therefore, the unused photos in the local directory will increase over time.
 
 > My current solution I think of is storing the name of employees in the cache. If there is an employee's name which doesn't exist in the employee directory got from the server, remove his/her photos in the local directory.
 
@@ -52,6 +52,8 @@ I haven't created a way to remove the employees' photos for an employee who isn'
 
 ```swift
 // Generate random string
+// https://stackoverflow.com/a/26845710
+
 let letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXY"
 
 func randomString(length: Int) -> String {
