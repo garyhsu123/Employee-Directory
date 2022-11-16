@@ -1,6 +1,11 @@
 # Employee-Directory
 Block’s Mobile [Take-Home Project: an employee directory app](https://square.github.io/microsite/mobile-interview-project/#hello).
 
+##DEMO
+https://user-images.githubusercontent.com/17349191/202099247-861c5bd1-afb5-4ebc-9ea9-956d62884030.mp4
+
+
+
 ## Build tools & versions used
 Xcode (Version 14.0 beta 3)
 
