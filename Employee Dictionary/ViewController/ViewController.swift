@@ -10,7 +10,7 @@ import MobileCoreServices
 
 class ViewController: UIViewController {
 
-    lazy var employeeDetailVC = EmployeeDetailViewController()
+    var employeeDetailVC = EmployeeDetailViewController()
     var employeeListViewModel = EmployeeListViewModelObject(network: HTTPNetwork(), fileModel: FileModel())
     
     var navigationBar: UINavigationBar = {
