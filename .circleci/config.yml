@@ -8,11 +8,12 @@ jobs:
       FL_OUTPUT_DIR: output
     steps:
       - checkout
-      - name: Build and run tests
-        command: fastlane scan
-        environment: 
-          SCAN_DEVICE: iPhone 8
-          SCAN_SCHEME: Employee Directory
+      - run: 
+          name: Build and run tests
+          command: fastlane scan
+          environment: 
+            SCAN_DEVICE: iPhone 8
+            SCAN_SCHEME: Employee Directory
       - store_test_results:
         path: output/scan
       - store_artifacts:
