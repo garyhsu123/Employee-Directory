@@ -18,7 +18,7 @@ class Employee_DictionaryTests: XCTestCase {
         try super.setUpWithError()
         employeeDictionaryFakeDataSimulator = EmployeeDictionaryFakeDataSimulator()
         employeeProfileViewModel = EmployeeListViewModelObject(network: employeeDictionaryFakeDataSimulator)
-        try? employeeProfileViewModel.requestData(url: nil, decodeModel: CompanyData.self)
+        employeeProfileViewModel.requestData(url: URL.init(string: "https://")!, decodeModel: CompanyData.self)
     }
 
     override func tearDownWithError() throws {

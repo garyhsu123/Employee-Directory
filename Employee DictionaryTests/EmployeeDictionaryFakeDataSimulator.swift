@@ -38,10 +38,10 @@ class EmployeeDictionaryFakeDataSimulator: NSObject, NetworkProtocol, EmployeeDi
       return String([length].map{ _ in letters.randomElement()! })
     }
     
-    func requestJsonData<T>(requestUrl: URL?, decodeModel: T.Type, completion: ((T?) -> ())?) throws where T : Decodable {
-        
+    func requestJsonData<T>(requestUrl: URL, decodeModel: T.Type, completion: @escaping (Result<T?, Employee_Dictionary.NetworkError>) -> Void) where T : Decodable, T : Encodable {
         if T.self != CompanyData.self {
-            throw NetworkError.decodeFail
+            completion(.failure(.decodeFail))
+            return
         }
         
         for _ in 0..<10 {
@@ -64,7 +64,7 @@ class EmployeeDictionaryFakeDataSimulator: NSObject, NetworkProtocol, EmployeeDi
         self.groupedEmployeesData = groupedEmployees
         self.rawGroupedEmployeesData = groupedEmployees
         
-        completion?(CompanyData(employees: fakeEmployees) as? T)
+        completion(.success(CompanyData(employees: fakeEmployees) as? T))
     }
     
     func getViewModel(section: Int, index: Int) -> EmployeeProfileViewModel {

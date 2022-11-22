@@ -41,7 +41,10 @@ class EmployeeListViewModelObject: EmployeeListViewModel {
         self.network?.requestJsonData(requestUrl: url, decodeModel: decodeModel.self, completion: { [weak self] result in
             switch result {
                 case .success(let companyData):
-                    let employees = companyData.employees
+                    guard let employees = companyData?.employees else {
+                        completion?(true)
+                        return
+                    }
                     
                     var groupedEmployees = Dictionary(grouping: employees, by: { employee in
                         return employee.fullName.uppercased().first

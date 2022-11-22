@@ -14,14 +14,14 @@ enum NetworkError: Error {
 }
 
 protocol NetworkProtocol {
-    func requestJsonData<T>(requestUrl: URL, decodeModel: T.Type, completion: @escaping (Result<T, NetworkError>) -> Void) where T : Codable
+    func requestJsonData<T>(requestUrl: URL, decodeModel: T.Type, completion: @escaping (Result<T?, NetworkError>) -> Void) where T : Codable
 }
 
 class HTTPNetwork: NSObject, NetworkProtocol {
     
   
     var cancellable: Cancellable?
-    func requestJsonData<T>(requestUrl: URL, decodeModel: T.Type, completion: @escaping (Result<T, NetworkError>) -> Void) where T : Codable {
+    func requestJsonData<T>(requestUrl: URL, decodeModel: T.Type, completion: @escaping (Result<T?, NetworkError>) -> Void) where T : Codable {
         
         let decoder = JSONDecoder()
         decoder.keyDecodingStrategy = .convertFromSnakeCase
