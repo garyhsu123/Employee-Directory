@@ -13,7 +13,7 @@ jobs:
           command: fastlane scan
           environment: 
             SCAN_DEVICE: iPhone 8
-            SCAN_SCHEME: Employee\ Directory
+            SCAN_SCHEME: Employee Dictionary
       - store_test_results:
           path: output/scan
       - store_artifacts:
