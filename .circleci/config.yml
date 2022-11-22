@@ -15,9 +15,9 @@ jobs:
             SCAN_DEVICE: iPhone 8
             SCAN_SCHEME: Employee Directory
       - store_test_results:
-        path: output/scan
+          path: output/scan
       - store_artifacts:
-        path: output
+          path: output
  
 workflows:
   version: 2.1
