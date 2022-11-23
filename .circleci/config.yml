@@ -38,9 +38,9 @@ workflows:
       - build-and-test-branch
         requires:
           - clone-branch
-      - build-and-test-branch
+      - merge-to-master
         requires:
-          - test-branch
+          - build-and-test-branch
         filters:
           branches:
             only: master
