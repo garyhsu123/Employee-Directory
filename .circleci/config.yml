@@ -1,16 +1,13 @@
 # .circleci/config.yml
 version: 2.1
 jobs:
-  clone-branch:
+  build-and-test:
     macos:
       xcode: "14.1.0"
     environment:
       FL_OUTPUT_DIR: output
     steps:
-      - git clone -b circleci-project-setup git@github.com:garyhsu123/Employee-Directory.git
-      
-  build-and-test-branch:
-    steps:
+      - run: git clone -b circleci-project-setup git@github.com:garyhsu123/Employee-Directory.git
       - run: 
           name: Build and run tests
           command: fastlane scan
@@ -21,6 +18,26 @@ jobs:
           path: output/scan
       - store_artifacts:
           path: output
+      - when:
+          condition:
+            equal: [ main, << pipeline.git.branch >> ]
+          steps:
+            - run: 
+                name: Echo
+                command: echo "Hello World"
+
+  # build-and-test-branch:
+  #   steps:
+  #     - run: 
+  #         name: Build and run tests
+  #         command: fastlane scan
+  #         environment: 
+  #           # SCAN_DEVICE: iPhone 8
+  #           SCAN_SCHEME: Employee Dictionary
+  #     - store_test_results:
+  #         path: output/scan
+  #     - store_artifacts:
+  #         path: output
 
   merge-to-master: 
     macos:
@@ -34,13 +51,4 @@ workflows:
   version: 2.1
   build-and-test:
     jobs:
-      - clone-branch
-      - build-and-test-branch:
-          requires:
-            - clone-branch
-      - merge-to-master:
-          requires:
-            - build-and-test-branch
-          filters:
-            branches:
-              only: master
+      - build-and-test
