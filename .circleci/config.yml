@@ -7,9 +7,7 @@ jobs:
     environment:
       FL_OUTPUT_DIR: output
     steps:
-      - run: |
-          git clone --no-checkout "$CIRCLE_REPOSITORY_URL" .
-          git checkout --force -B "$CIRCLE_BRANCH" "$CIRCLE_SHA1"
+      - run: git clone -b circleci-project-setup "$CIRCLE_REPOSITORY_URL" .
       - run: 
           name: Build and run tests
           command: fastlane scan
