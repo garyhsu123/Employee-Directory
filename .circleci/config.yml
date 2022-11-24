@@ -8,7 +8,7 @@ jobs:
       FL_OUTPUT_DIR: output
     steps:
       - run: git clone -b circleci-project-setup git@github.com:garyhsu123/Employee-Directory.git
-      - run: fastlane gym
+      - run: git --no-pager log --no-color -n 1 --format='HEAD is now at %h %s'
       - run: 
           name: Build and run tests
           command: fastlane scan
