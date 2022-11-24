@@ -7,7 +7,14 @@ jobs:
     environment:
       FL_OUTPUT_DIR: output
     steps:
-      - run: git clone -b circleci-project-setup git@github.com:garyhsu123/Employee-Directory.git
+      - run: |
+          echo 'Cloning git repository'
+          existing_repo='false'
+          mkdir -p '/Users/distiller/project'
+          cd '/Users/distiller/project'
+          git clone --no-checkout "$CIRCLE_REPOSITORY_URL" .
+          echo 'Checking out branch'
+          git checkout --force -B "$CIRCLE_BRANCH" "$CIRCLE_SHA1"
       - run: git --no-pager log --no-color -n 1 --format='HEAD is now at %h %s'
       - run: 
           name: Build and run tests
