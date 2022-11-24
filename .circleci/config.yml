@@ -24,7 +24,7 @@ jobs:
           steps:
             - run:
                 name: Checkout
-                command: git checkout master
+                command: git checkout main
             - run:
                 name: Echo
                 command: git merge circleci-project-setup
