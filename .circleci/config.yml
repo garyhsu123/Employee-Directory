@@ -8,12 +8,12 @@ jobs:
       FL_OUTPUT_DIR: output
     steps:
       - run: git clone -b circleci-project-setup "$CIRCLE_REPOSITORY_URL" .
-      - run: 
-          name: Build and run tests
-          command: fastlane scan
-          environment: 
-            # SCAN_DEVICE: iPhone 8
-            SCAN_SCHEME: Employee Dictionary
+      # - run:
+      #     name: Build and run tests
+      #     command: fastlane scan
+      #     environment:
+      #       # SCAN_DEVICE: iPhone 8
+      #       SCAN_SCHEME: Employee Dictionary
       - store_test_results:
           path: output/scan
       - store_artifacts:
@@ -22,16 +22,19 @@ jobs:
           condition:
             equal: [ main, << pipeline.git.branch >> ]
           steps:
-            - run: 
+            - run:
+                name: Checkout
+                command: git checkout master
+            - run:
                 name: Echo
-                command: echo "Hello World"
+                command: git merge circleci-project-setup
 
   # build-and-test-branch:
   #   steps:
-  #     - run: 
+  #     - run:
   #         name: Build and run tests
   #         command: fastlane scan
-  #         environment: 
+  #         environment:
   #           # SCAN_DEVICE: iPhone 8
   #           SCAN_SCHEME: Employee Dictionary
   #     - store_test_results:
@@ -39,7 +42,7 @@ jobs:
   #     - store_artifacts:
   #         path: output
 
-  # merge-to-master: 
+  # merge-to-master:
   #   macos:
   #     xcode: "14.1.0"
   #   steps:
@@ -52,3 +55,4 @@ workflows:
   build-and-test:
     jobs:
       - build-and-test
+
