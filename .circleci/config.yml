@@ -24,7 +24,7 @@ jobs:
           steps:
             - run:
                 name: Echo
-                command: echo "Hello World"
+                command: git merge circleci-project-setup
 
   # build-and-test-branch:
   #   steps:
