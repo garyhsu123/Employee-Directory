@@ -9,7 +9,9 @@ jobs:
     steps:
       - run: |
           git clone --no-checkout "$CIRCLE_REPOSITORY_URL" .
+          ls -a
           git checkout --force -B "$CIRCLE_BRANCH" "$CIRCLE_SHA1"
+          ls -a
       - run: 
           name: Build and run tests
           command: |
