@@ -8,17 +8,8 @@ jobs:
       FL_OUTPUT_DIR: output
     steps:
       - run: |
-          mkdir -p '/Users/distiller/project'
-          cd '/Users/distiller/project'
-          pwd
-          ls
           git clone --no-checkout "$CIRCLE_REPOSITORY_URL" .
-          echo 'Checking out branch'
-          pwd
-          ls
           git checkout --force -B "$CIRCLE_BRANCH" "$CIRCLE_SHA1"
-          pwd
-          ls
       - run: 
           name: Build and run tests
           command: |
