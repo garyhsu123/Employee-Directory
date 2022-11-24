@@ -9,17 +9,12 @@ jobs:
     steps:
       - run: |
           git clone --no-checkout "$CIRCLE_REPOSITORY_URL" .
-          ls -a
           git checkout --force -B "$CIRCLE_BRANCH" "$CIRCLE_SHA1"
-          ls -a
       - run: 
           name: Build and run tests
-          command: |
-            fastlane scan
-            pwd
-            ls
+          command: fastlane scan
           environment: 
-            SCAN_DEVICE: iPhone 8
+            # SCAN_DEVICE: iPhone 8
             SCAN_SCHEME: Employee Dictionary
       - store_test_results:
           path: output/scan
