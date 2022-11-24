@@ -8,11 +8,12 @@ jobs:
       FL_OUTPUT_DIR: output
     steps:
       - run: git clone -b circleci-project-setup git@github.com:garyhsu123/Employee-Directory.git
+      - run: fastlane env
       - run: 
           name: Build and run tests
           command: fastlane scan
           environment: 
-            # SCAN_DEVICE: iPhone 8
+            SCAN_DEVICE: iPhone 8
             SCAN_SCHEME: Employee Dictionary
       - store_test_results:
           path: output/scan
@@ -39,13 +40,13 @@ jobs:
   #     - store_artifacts:
   #         path: output
 
-  merge-to-master: 
-    macos:
-      xcode: "14.1.0"
-    steps:
-      - run:
-          name: Echo
-          command: echo "Hello World"
+  # merge-to-master: 
+  #   macos:
+  #     xcode: "14.1.0"
+  #   steps:
+  #     - run:
+  #         name: Echo
+  #         command: echo "Hello World"
 
 workflows:
   version: 2.1
