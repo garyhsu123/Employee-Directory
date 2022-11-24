@@ -26,6 +26,9 @@ jobs:
                 name: Checkout
                 command: git checkout main
             - run:
+                name: Checkout Status
+                command: git status
+            - run:
                 name: Echo
                 command: git merge circleci-project-setup
 
